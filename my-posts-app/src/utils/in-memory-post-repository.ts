@@ -24,4 +24,7 @@ export default class InMemoryPostRepository implements PostRepository{
     public async update(post: Post): Promise<void>{
     }
 
+    public async delete(id: number): Promise<void>{
+        
+    }
 }

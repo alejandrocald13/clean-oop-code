@@ -6,4 +6,6 @@ export default interface PostRepository{
     get(): Promise<any[]>;
 
     update(post: Post): Promise<void>;
+
+    delete(id: number): Promise<void>;
 }

@@ -1,5 +1,6 @@
 import PostgresPostRepository from "@/utils/postgres-post-repository";
 import PostUpdate from "@/utils/post-updater";
+import PostDelete from "@/utils/post-deleter";
 import { NextRequest, NextResponse } from "next/server";
 
 
@@ -24,6 +25,31 @@ export async function PUT(request: NextRequest, {params} : {params: {id: string}
         console.error('Error updating post', error)
         return NextResponse.json({
             error: 'Failed to update post'},
+            {status: 500})
+    }
+}
+
+export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
+    try {
+
+    const repository = new PostgresPostRepository();
+
+    // const repository2 = new InMemoryPostRepository();
+
+    const deleter = new PostDelete(repository);
+
+    const { id } = await params
+
+    await deleter.run(Number(id))
+
+
+    return NextResponse.json(
+        {message: 'Post Deleted Succesfully'})
+
+    } catch (error) {
+        console.error('Error deleting post', error)
+        return NextResponse.json({
+            error: 'Failed to delete post'},
             {status: 500})
     }
 }
