@@ -17,4 +17,8 @@ export default class InMemoryPostRepository implements PostRepository{
         this.posts.push({id: id, author: author, description: description, title: title});
     }
 
+    public async get(){
+        return this.posts
+    }
+
 }

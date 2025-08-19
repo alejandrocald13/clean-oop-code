@@ -1,6 +1,8 @@
 import Post from "./post";
 import PostRepository from "./post-repository";
 
+// CASO DE USO (REGISTRAR POST)
+
 export default class PostRegister{
     private readonly repository: PostRepository
 

@@ -26,4 +26,16 @@ export default class PostgresPostRepository implements PostRepository{
             throw new Error("Failed to save post in postgres")
         }
     }
+
+    async get(){
+        try{
+            const data = await this.sql `SELECT * FROM public.posts`;
+
+            return data;
+        } catch (err){
+            console.error(err)
+            throw new Error('Failed to get posts in postgres')
+
+        }
+    }
 }
