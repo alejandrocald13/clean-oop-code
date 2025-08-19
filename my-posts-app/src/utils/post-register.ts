@@ -1,41 +1,16 @@
 import postgres from "postgres";
+import Post from "./post";
 
 export default class PostRegister{
     constructor(){}
 
     public async run(id: number, author: string, title: string, description: string) {
         try{
-            this.isValidPost(id, author, title, description);
-            this.savePostData(id, author, title, description);
+            const post = Post.create(id, title, description, author)
+            await this.savePostData(post.id.value, post.author.value, post.title.value, post.description.value)
+
         } catch (err){
             throw err
-        }
-    }
-
-    isValidPost(id: number, author: string, title: string, description: string){
-        try{
-            if (id && title && description && author) {
-    
-                if (typeof id !== "number") {
-                    throw new TypeError('Type of id is not number')
-                }
-                
-                if (title.length  >=  20) {
-                    throw new Error('Length of title is greater than 20 chars.')
-                }
-    
-                if (description.length  >=  64) {
-                    throw new Error('Length of description is greater than 64 chars.')
-                }
-    
-                if (typeof author !== "string") {
-                    throw new TypeError('Type of id is not number')
-                }
-            } else{
-                throw new Error("Invalid empty or wrong fields")
-            }
-        } catch (err) {
-            console.error(err)
         }
     }
 

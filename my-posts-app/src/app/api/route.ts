@@ -1,7 +1,5 @@
 import PostRegister from "@/utils/post-register";
 import { NextRequest, NextResponse } from "next/server";
-import postgres from "postgres";
-
 
 export async function POST(request: NextRequest){
 
