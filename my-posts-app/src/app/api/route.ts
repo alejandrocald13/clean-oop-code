@@ -4,7 +4,7 @@ import postgres from "postgres";
 export async function POST(request: NextRequest){
 
     try {
-        const connectionString = 'postgresql://postgres:PW0tzIjvPIo3TcXn@db.fvsvtllszvjinglgnyxt.supabase.co:5432/postgres'
+        const connectionString = 'postgresql://postgres.fvsvtllszvjinglgnyxt:PW0tzIjvPIo3TcXn@aws-1-us-east-2.pooler.supabase.com:6543/postgres'
         const sql = postgres(connectionString)
 
         const data = await request.json();
@@ -30,9 +30,9 @@ export async function POST(request: NextRequest){
 
         if (postApproved) {
 
-            // add logic to save data
+            await sql `INSERT INTO public.posts (id, title, description, author) values(${data.id}, ${data.title}, ${data.description}, ${data.author});`;
 
-            return NextResponse.json({message: 'Post is valid', post: data});
+            return NextResponse.json({message: 'Post is valid and save succesfully', post: data});
 
         } else {
             return NextResponse.json({
